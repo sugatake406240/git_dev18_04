@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Chatアプリ</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <!-- ブラウザの画面に見える内容 -->
+
+<main>
+  <!-- <button id="remove" type="button">削除ボタン</button> -->
+
+
+<!-- 佐藤君 -->
+  <section  class="sato_inputarea">
+  <div  class="sato_title" >
+    <img  class="person_img" src="imgs/buke.png" alt="" >
+    <h1  style="margin-left: 20px;">佐藤君</h1>
+    <!-- <input type="text" id="username"> -->
+  </div>
+
+  <div>
+    <!-- テキストエリア -->
+    <textarea name="" id="text_sato" cols="30" rows="10"></textarea>
+  </div>
+  <div>
+    <!-- 送信ボタン -->
+    <button id="send_sato" >送信</button>
+  </div>
+
+</section>
+
+
+
+<!-- 通信表示 -->
+<section  class="messege" >
+  <div>
+    <h1 class="messege_title" >通信状況 <br><p class="messege_title_comment" >※間違ったコメントはクリックで削除</p> </h1>
+    <!-- <input type="text" id="username"> -->
+    
+    <div id="output"></div>
+    
+  </div>
+</section>
+
+
+<!-- 鈴木君 -->
+<section class="suzuki_inputarea" >
+  <div  class="suzuki_title">
+    <img   class="person_img" src="imgs/tuku.jpg" alt="" >
+    <h1 style="margin-left: 20px;">鈴木君</h1>
+    <!-- <input type="text" id="username"> -->
+  </div>
+
+  <div>
+    <!-- テキストエリア -->
+    <textarea name="" id="text_suzuki" cols="30" rows="10"></textarea>
+
+  </div>
+  <div>
+    <!-- 送信ボタン -->
+    <button id="send_suzuki" >送信</button>
+  </div>
+
+</section>
+
+</main>
+
+  <!-- JQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <!--** 以下Firebase **-->
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <!-- firebaseのverが変わるので、数字がどんどん変化します🙋‍♀️ -->
+  <!-- ここにfirebaseのscriptを貼り付ける -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyAVDAnGEr4HfW4y1hDuK0P3I5aKA7ms85c",
+      authDomain: "dev18-chat01-ec2c1.firebaseapp.com",
+      databaseURL: "https://dev18-chat01-ec2c1.firebaseio.com",
+      projectId: "dev18-chat01-ec2c1",
+      storageBucket: "dev18-chat01-ec2c1.appspot.com",
+      messagingSenderId: "787873825531",
+      appId: "1:787873825531:web:06171ba8d5e10eb526e65e"
+    };
+    
+    
+    // 
+    // Initialize Firebase
+    // 
+    firebase.initializeApp(firebaseConfig);
+
+
+    // 
+    //firebaseのデーターベース（保存させる場所）を使いますよ
+    // 
+    const newPostRef = firebase.database().ref();
+
+    // ここから下にjqueryの処理を書いて練習します
+
+    // 
+    // 送信
+    // 
+    // 佐藤君　送信ボタンをクリックされたら次の処理をする
+    $("#send_sato").on("click", function () {
+      // データを登録で送る
+
+      const date= new Date();
+      const localtime=date.toLocaleString();
+      console.log(localtime);
+
+
+      newPostRef.push({
+        // username: $("#username").val(), //名前
+        username: "佐藤", //名前
+        text: $("#text_sato").val(), //テキストエリア
+        time: localtime,
+      })
+
+      console.log("佐藤くん text"+$("#text_sato").val()+localtime);
+      $("#text_sato").val(""); //空にする
+      // $("#username").val(""); //空にする
+    });
+
+    // 鈴木君　送信ボタンをクリックされたら次の処理をする
+    $("#send_suzuki").on("click", function () {
+      // データを登録で送る
+      const date= new Date();
+      const localtime=date.toLocaleString();
+      console.log(localtime);
+
+      newPostRef.push({
+        // username: $("#username").val(), //名前
+        username: "鈴木", //名前
+        text: $("#text_suzuki").val(), //テキストエリア
+        time: localtime,
+      })
+      
+      console.log("鈴木くん text"+$("#text_suzuki").val()+localtime);
+
+      $("#text_suzuki").val(""); //空にする
+      // $("#username").val(""); //空にする
+    });
+
+    // 受信処理
+    newPostRef.on("child_added",function (data) {
+      let v = data.val(); //ここに保存されたデータが全て入ってくる
+      let k = data.key;   //データのキー値を保存
+      // console.log(v);  //vの変数に入っているオブジェクトを全てみる
+      // console.log(k);
+
+      // let str = `<div><p>${v.username}<br>${v.text}</p></div>`;
+      let str;
+
+      // ここでデータをhtmlに埋め込む
+      if(v.username=="佐藤"){
+        console.log(v.username);
+        str = `<p  id="${k}" class="out_sato sato_title"><img src="imgs/buke.png" width="38px" height="38px" alt=""   style="align-self: flex-start;">${v.username}  ${v.time}<br>${v.text} </p>`;
+       
+        $("#output").append(str);
+      }
+      else if(v.username=="鈴木"){
+        console.log(v.username);
+        str = `<p  id="${k}" class="out_suzuki suzuki_title"><img src="imgs/tuku.jpg"  width="38px" height="38px" alt="" style="align-self: flex-start;">${v.username}  ${v.time}<br>${v.text} </p>`;
+       
+        $("#output").append(str);
+      }
+    })
+
+    $("#text").on("keydown", function (e) {
+      console.log(e, "event");
+
+      if (e.keyCode === 13) {
+        newPostRef.push({
+          username: $("#username").val(), //名前
+          text: $("#text").val(), //テキストエリア
+        })
+        $("#text").val(""); //空にする
+        $("#username").val(""); //空にする
+      }
+    })
+
+  // });
+
+
+
+
+// 
+// 
+// 削除処理
+// 
+// ID=outputエリア
+// 
+$(document).on('click', (event) => {
+    const id = $(event.target).attr('id');
+    // console.log(event.target);
+    // console.log(id);
+    if(id != null){
+      firebase.database().ref(id).remove();
+    }
+    
+
+    // 受信処理
+    $("#output").empty();  //画面初期化
+
+    newPostRef.on("child_added",function (data) {
+    let v = data.val(); //ここに保存されたデータが全て入ってくる
+    let k = data.key;   //データのキー値を保存
+    let str;
+
+    // ここでデータをhtmlに埋め込む
+      if(v.username=="佐藤"){
+        console.log(v.username);
+        str = `<p  id="${k}" class="out_sato sato_title"><img src="imgs/buke.png" width="38px" height="38px" alt=""   style="align-self: flex-start;">${v.username}${v.time}<br>${v.text} </p>`;
+        $("#output").append(str);
+      }
+      else if(v.username=="鈴木"){
+        console.log(v.username);
+        str = `<p  id="${k}" class="out_suzuki suzuki_title"><img src="imgs/tuku.jpg"  width="38px" height="38px" alt="" style="align-self: flex-start;">${v.username}${v.time}<br>${v.text} </p>`;
+        $("#output").append(str);
+      }
+    })
+});
+
+
+
+
+
+
+  </script>
+
+<!-- <script src="js/app.js"></script> -->
+</body>
+
+</html>

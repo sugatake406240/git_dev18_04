@@ -1,0 +1,212 @@
+/* ここから下に記載していく */
+@charset "utf-8";
+
+html{
+    font-size: 62.5%; /*16px→10px*/
+}
+
+body{
+    background-color: rgb(226, 217, 217);
+    color: #333333;
+    font-size: 1.8rem;
+    position: relative; /*中央ぞろえのための親要素指定 */
+}
+
+
+main{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.sato_inputarea{
+    width: 300px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.sato_title{
+    display: flex;
+}
+
+
+.suzuki_inputarea{
+    width: 300px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.suzuki_title{
+    display: flex;
+}
+
+.person_img {
+    border:4px solid #fff;
+    border-radius: 400px;
+    box-shadow: 0px 0px 10px #000;
+    height: 60px;
+    margin: 10px;
+    width:  60px;
+  
+    margin: 0 0 20px 0;
+  }
+
+
+.messege{
+    width: 600px;
+    background-color: rgb(116, 212, 156);
+}
+
+.messege_title{
+    width: 600px;
+    margin-top: 10px;
+    text-align: center;
+    background-color: chartreuse;
+    padding: 10px 0;
+    font-size:3rem;
+    font-weight: bold;
+}
+
+.messege_title_comment{
+    font-size:1.5rem;
+}
+
+#output_left{
+    /* width: 200px; */
+    text-align: left;
+    margin-left: 30px;
+    background-color: darkcyan;
+    padding-top: 10px;
+}
+
+#output_right{
+    /* width: 200px; */
+    text-align: right;
+    /* margin: 0 30px 10px 370px; */
+    background-color: darkcyan;
+    padding-top: 10px;
+}
+
+
+.out_sato{
+    text-align:left;
+    width=150px;
+    margin-right: 350px;
+    background-color: turquoise;
+    margin-bottom: 10px;
+}
+
+.out_suzuki{
+    text-align:left;
+    width=150px; 
+    margin-left: 350px; 
+    background-color: turquoise;
+    margin-bottom: 10px;
+}
+
+
+
+.out_img{
+    /* 画像をブラウザの幅に合わせる */
+    width=38px;
+    height=38px; 
+    align-self: flex-start;
+
+}
+
+/* タイトル関連 */
+
+.title{
+    /* width: 400px; */
+    margin: auto;
+
+    /* 下絵の中央に文字を表示 　↓　*/
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%,-50%,0);
+    /* 下絵の中央に文字を表示 ↑　　*/
+
+    font-size: 42px;
+    background-color: rgba(213, 247, 26, 0.75);
+    color:#004eff;
+    font-weight: bold;
+
+   
+}
+
+.title_wrapper {
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 0 4%;
+}
+
+.jyanken_back{
+    /* 下絵の位置を決定する 　↓　*/
+    position: relative;
+
+}
+
+/*  */
+
+
+
+.profile_wrapper{
+    width: 500px;
+    margin: auto;
+}
+
+.text_center{
+    text-align: center;
+
+}
+
+.flex{
+    display: flex;
+}
+
+.flex2{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+
+
+.sample{
+    width:120px; height:150px;
+    margin:5px; padding:10px; border:1px solid black;
+    background-color:lightgray;
+    text-align: center;
+}
+
+.result{
+    font-size: 32px;
+    color: brown;
+    font-weight: bold;
+
+}
+
+/* 　　　　　　 */
+/* hoverで拡大 */
+.ImgBox{
+    width: 280px;
+    height: 200px;
+    overflow: hidden;
+  }
+  .ImgBox-Img{
+    transition-duration: 0.3s;
+  }
+  .ImgBox-Img:hover{
+    transform: scale(1.2);
+    transition-duration: 0.3s;
+  }
+
+
+  /* footer */
+.footer{
+padding: 24px 0;
+background-color: #707070;
+}
+
+
